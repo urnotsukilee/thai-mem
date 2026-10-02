@@ -62,14 +62,14 @@ function showCard() {
 
   // 正面
   elements.thaiChar.textContent = item.char;
-  elements.romanization.textContent = state.showRoman ? item.roman : "";
-  elements.romanization.style.display = state.showRoman ? "block" : "none";
+  elements.romanization.textContent = "";
+  elements.romanization.style.display = "none";
 
   // 背面
   elements.thaiCharBack.textContent = item.char;
   elements.name.textContent = item.name || "";
   elements.classEl.textContent = item.class || "";
-  elements.sound.textContent = item.sound || "";
+  elements.sound.textContent = state.showRoman ? (item.sound || "") : (item.roman || item.sound || "");
 
   // 更新进度
   updateProgress();
@@ -91,7 +91,7 @@ function flipCard() {
 function nextCard() {
   const data = getCurrentData();
   if (data.length === 0) return;
-  state.currentIndex = (state.currentIndex + 1) % data.length;
+  state.currentIndex = Math.floor(Math.random() * data.length);
   state.isFlipped = false;
   elements.card.classList.remove("flipped");
   showCard();
@@ -100,7 +100,7 @@ function nextCard() {
 function prevCard() {
   const data = getCurrentData();
   if (data.length === 0) return;
-  state.currentIndex = (state.currentIndex - 1 + data.length) % data.length;
+  state.currentIndex = Math.floor(Math.random() * data.length);
   state.isFlipped = false;
   elements.card.classList.remove("flipped");
   showCard();
@@ -126,7 +126,7 @@ function toggleShuffle() {
       ...state.originalOrder[state.currentMode],
     ];
   }
-  state.currentIndex = 0;
+  state.currentIndex = Math.floor(Math.random() * getCurrentData().length);
   state.isFlipped = false;
   elements.card.classList.remove("flipped");
   showCard();
@@ -134,7 +134,12 @@ function toggleShuffle() {
 
 function toggleShowRoman() {
   state.showRoman = elements.showRoman.checked;
-  showCard();
+  // 只更新背面显示，不重置卡片
+  const data = getCurrentData();
+  const item = data[state.currentIndex];
+  if (item && state.isFlipped) {
+    elements.sound.textContent = state.showRoman ? (item.sound || "") : (item.roman || item.sound || "");
+  }
 }
 
 function toggleAutoFlip() {
@@ -144,7 +149,7 @@ function toggleAutoFlip() {
 function updateMode() {
   state.isFlipped = false;
   elements.card.classList.remove("flipped");
-  state.currentIndex = 0;
+  state.currentIndex = Math.floor(Math.random() * getCurrentData().length);
 
   if (state.currentMode === "consonants") {
     elements.btnConsonants.classList.add("active");
@@ -164,7 +169,7 @@ function updateMode() {
       ...state.originalOrder[state.currentMode],
     ];
   }
-
+  state.currentIndex = Math.floor(Math.random() * getCurrentData().length);
   showCard();
 }
 
