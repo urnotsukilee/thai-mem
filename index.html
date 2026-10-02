@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>泰语字母记忆</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <meta name="theme-color" content="#4a90e2" />
+</head>
+
+<body>
+  <header>
+    <h1>泰语字母记忆</h1>
+    <nav>
+      <button id="btn-consonants" class="active">辅音</button>
+      <button id="btn-vowels">元音</button>
+      <button id="btn-settings">设置</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="card-container" class="card-container">
+      <div id="card" class="card">
+        <div class="card-face card-front">
+          <div class="thai-char" id="thai-char"></div>
+          <div class="romanization" id="romanization"></div>
+        </div>
+        <div class="card-face card-back">
+          <div class="thai-char" id="thai-char-back"></div>
+          <div class="info">
+            <div class="name" id="name"></div>
+            <div class="class" id="class"></div>
+            <div class="sound" id="sound"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="btn-flip">翻转卡片</button>
+      <button id="btn-next">下一个</button>
+      <button id="btn-prev">上一个</button>
+    </div>
+
+    <div class="progress">
+      <span id="progress-text">0 / 0</span>
+      <div class="progress-bar">
+        <div id="progress-fill"></div>
+      </div>
+    </div>
+
+    <div id="settings-panel" class="settings hidden">
+      <h2>设置</h2>
+      <div class="setting-item">
+        <label for="shuffle-mode">随机模式</label>
+        <input type="checkbox" id="shuffle-mode" />
+      </div>
+      <div class="setting-item">
+        <label for="auto-flip">答对自动翻转</label>
+        <input type="checkbox" id="auto-flip" />
+      </div>
+      <div class="setting-item">
+        <label for="show-roman">显示罗马音</label>
+        <input type="checkbox" id="show-roman" checked />
+      </div>
+      <button id="btn-close-settings">关闭</button>
+    </div>
+  </main>
+
+  <script src="./js/data.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+
+</html>
